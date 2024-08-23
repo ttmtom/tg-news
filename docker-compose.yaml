@@ -1,0 +1,35 @@
+version: '2'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  zookeeper:
+    image: 'bitnami/zookeeper'
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+      - ZOO_CLIENT_USER=kafka_user
+      - ZOO_CLIENT_PASSWORD=kafka_password
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    environment:
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_INTER_BROKER_USER=kafka_user
+      - KAFKA_INTER_BROKER_PASSWORD=kafka_password
+      - KAFKA_CONTROLLER_USER=kafka_user
+      - KAFKA_CONTROLLER_PASSWORD=kafka_password
+      - KAFKA_ZOOKEEPER_USER=kafka_user
+      - KAFKA_ZOOKEEPER_PASSWORD=kafka_password
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
