@@ -41,11 +41,11 @@ class SubscribeHandler(
             subscriptionService.addSubscription(channelId, source)
             logger.info("Subscribed $source to $channelId")
 
-            tgService.sendMessageToChannel(channelId, "You have subscribed to notifications")
+            tgService.sendMessageToChannel(channelId, "You have subscribed to $source")
             sendMessage("Subscribed $text")
         } catch (e: NullPointerException) {
             // library error??
-            sendMessage(text)
+            sendMessage("$channelId subscribed to $source")
         } catch (e: Exception) {
             logger.error("channelId Error: $e")
             sendMessage("${e.message}, ${e.localizedMessage}")

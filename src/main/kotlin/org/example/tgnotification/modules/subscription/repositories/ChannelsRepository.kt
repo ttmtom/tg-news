@@ -5,6 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface ChannelsRepository: JpaRepository<ChannelsEntity, String> {
-
-}
+interface ChannelsRepository: JpaRepository<ChannelsEntity, String>

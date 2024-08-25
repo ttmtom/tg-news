@@ -13,4 +13,19 @@ class EnvProperties {
 
     @Value("\${telegram-bot.admin-id}")
     lateinit var telegramBotAdminId: String
+
+    @Value("\${spring.kafka.bootstrap-servers}")
+    lateinit var kafkaBootstrapServers: String
+
+    @Value("\${spring.kafka.producer.key-serializer}")
+    lateinit var kafkaProducerKeySerializer: String
+
+    @Value("\${spring.kafka.producer.value-serializer}")
+    lateinit var kafkaProducerValueSerializer: String
+
+    @Value("\${spring.kafka.consumer.key-deserializer}")
+    lateinit var kafkaConsumerKeyDeserializer: String
+
+    @Value("\${spring.kafka.consumer.value-deserializer}")
+    lateinit var kafkaConsumerValueDeserializer: String
 }
