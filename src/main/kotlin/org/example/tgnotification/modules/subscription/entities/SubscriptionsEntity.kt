@@ -13,12 +13,12 @@ open class SubscriptionsEntity() {
     @Column(name = "id", nullable = false)
     val id: Long = 0L
 
-    @OneToOne
-    @JoinColumn(name = "channel_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "channel_id", nullable = false, unique = false)
     var channel: ChannelsEntity? = null
 
-    @OneToOne
-    @JoinColumn(name = "source_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "source_id", nullable = false, unique = false)
     var source: SourcesEntity? = null
 
     constructor(channel: ChannelsEntity, source: SourcesEntity) : this() {
