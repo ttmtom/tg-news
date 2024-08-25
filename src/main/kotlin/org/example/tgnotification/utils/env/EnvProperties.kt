@@ -10,4 +10,7 @@ class EnvProperties {
 
     @Value("\${telegram-bot.username}")
     lateinit var telegramBotUsername: String
+
+    @Value("\${telegram-bot.admin-id}")
+    lateinit var telegramBotAdminId: String
 }

@@ -26,8 +26,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.flywaydb:flyway-core:10.17.2")
     implementation("org.flywaydb:flyway-database-postgresql:10.17.2")
+    implementation("org.springframework.boot:spring-boot-starter-logging")
+    implementation("org.slf4j:slf4j-api:2.0.7")
+    implementation("ch.qos.logback:logback-classic:1.4.12")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC.2")
     runtimeOnly("org.postgresql:postgresql")
-    val telegram_bot_version="0.10.2b"
+    val telegram_bot_version="0.10.2"
     implementation("io.github.dehuckakpyt.telegrambot:telegram-bot-core:$telegram_bot_version")
     implementation("io.github.dehuckakpyt.telegrambot:telegram-bot-spring:$telegram_bot_version")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
