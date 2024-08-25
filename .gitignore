@@ -39,6 +39,6 @@ out/
 ### Kotlin ###
 .kotlin
 
-./data/**/*
+./data
 *.env
 logs
