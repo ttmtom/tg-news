@@ -28,4 +28,7 @@ class EnvProperties {
 
     @Value("\${spring.kafka.consumer.value-deserializer}")
     lateinit var kafkaConsumerValueDeserializer: String
+
+    @Value("\${spring.kafka.consumer.group-id}")
+    lateinit var kafkaGroupId: String
 }

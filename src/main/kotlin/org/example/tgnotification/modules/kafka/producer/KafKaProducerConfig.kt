@@ -1,4 +1,4 @@
-package org.example.tgnotification.modules.kafka
+package org.example.tgnotification.modules.kafka.producer
 
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.example.tgnotification.utils.env.EnvProperties

@@ -1,4 +1,4 @@
-package org.example.tgnotification.modules.kafka
+package org.example.tgnotification.modules.kafka.producer
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule

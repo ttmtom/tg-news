@@ -11,15 +11,15 @@ open class SubscriptionsEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    val id: Long = 0L
+    open val id: Long = 0L
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "channel_id", nullable = false, unique = false)
-    var channel: ChannelsEntity? = null
+    open var channel: ChannelsEntity? = null
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "source_id", nullable = false, unique = false)
-    var source: SourcesEntity? = null
+    open var source: SourcesEntity? = null
 
     constructor(channel: ChannelsEntity, source: SourcesEntity) : this() {
         this.channel = channel

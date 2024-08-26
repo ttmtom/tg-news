@@ -3,6 +3,7 @@ package org.example.tgnotification.modules.tg
 import io.github.dehuckakpyt.telegrambot.TelegramBot
 import io.github.dehuckakpyt.telegrambot.factory.TelegramBotFactory
 import io.github.dehuckakpyt.telegrambot.model.telegram.Message
+import jakarta.transaction.Transactional
 import org.example.tgnotification.modules.subscription.SubscriptionService
 import org.example.tgnotification.modules.tg.commands.SubscribeHandler
 import org.example.tgnotification.utils.env.EnvProperties
@@ -28,6 +29,7 @@ class TGService(
         return res
     }
 
+    @Transactional
     suspend fun sendMessageToSubscriber(source: String, text: String) {
         logger.info("Sending message to subscriber $source")
         val channels = subscriptionService.getChannelsBySource(source)

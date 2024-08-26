@@ -9,9 +9,9 @@ import org.hibernate.annotations.UpdateTimestamp
 open class DBBaseObject {
     @CreationTimestamp
     @Column(name="created_at", nullable = false, updatable = false)
-    lateinit var createdAt: java.time.LocalDateTime
+    open lateinit var createdAt: java.time.LocalDateTime
 
     @UpdateTimestamp
     @Column(name="updated_at", nullable = false)
-    lateinit var updatedAt: java.time.LocalDateTime
+    open lateinit var updatedAt: java.time.LocalDateTime
 }

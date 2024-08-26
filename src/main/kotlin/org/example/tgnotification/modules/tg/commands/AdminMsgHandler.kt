@@ -3,7 +3,7 @@ package org.example.tgnotification.modules.tg.commands
 import io.github.dehuckakpyt.telegrambot.annotation.HandlerComponent
 import io.github.dehuckakpyt.telegrambot.exception.chat.ChatException
 import io.github.dehuckakpyt.telegrambot.handler.BotUpdateHandler
-import org.example.tgnotification.modules.kafka.ProducerService
+import org.example.tgnotification.modules.kafka.producer.ProducerService
 import org.example.tgnotification.modules.kafka.data.AdminMessage
 import org.example.tgnotification.modules.tg.TGService
 import org.example.tgnotification.utils.env.EnvProperties

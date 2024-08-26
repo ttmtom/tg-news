@@ -31,6 +31,10 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.4.12")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC.2")
+    implementation("io.ktor:ktor-client-core:2.0.0")
+    implementation("io.ktor:ktor-client-cio:2.0.0")
+    implementation("io.ktor:ktor-client-content-negotiation:2.0.0")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.0.0")
     runtimeOnly("org.postgresql:postgresql")
     val telegram_bot_version="0.10.2"
     implementation("io.github.dehuckakpyt.telegrambot:telegram-bot-core:$telegram_bot_version")
