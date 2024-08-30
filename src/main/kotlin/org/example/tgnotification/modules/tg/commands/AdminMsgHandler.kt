@@ -4,7 +4,8 @@ import io.github.dehuckakpyt.telegrambot.annotation.HandlerComponent
 import io.github.dehuckakpyt.telegrambot.exception.chat.ChatException
 import io.github.dehuckakpyt.telegrambot.handler.BotUpdateHandler
 import org.example.tgnotification.modules.kafka.producer.ProducerService
-import org.example.tgnotification.modules.kafka.data.AdminMessage
+import org.example.tgnotification.modules.sources.SourceType
+import org.example.tgnotification.modules.tg.admin.AdminMessage
 import org.example.tgnotification.modules.tg.TGService
 import org.example.tgnotification.utils.env.EnvProperties
 import org.slf4j.LoggerFactory
@@ -28,6 +29,6 @@ class AdminMsgHandler(
 
 //        tgService.sendMessageToSubscriber("admin", text.orEmpty())
         val message = AdminMessage(text.orEmpty())
-        producerService.sendMessage("admin", message)
+        producerService.sendMessage(SourceType.admin.toString(), message)
     }
 })

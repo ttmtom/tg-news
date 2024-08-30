@@ -1,7 +1,10 @@
 package org.example.tgnotification.modules.subscription
 
 import jakarta.transaction.Transactional
+import org.example.tgnotification.modules.sources.SourceBaseClass
+import org.example.tgnotification.modules.sources.SourceType
 import org.example.tgnotification.modules.subscription.entities.ChannelsEntity
+import org.example.tgnotification.modules.subscription.entities.SourcesEntity
 import org.example.tgnotification.modules.subscription.entities.SubscriptionsEntity
 import org.example.tgnotification.modules.subscription.repositories.SourcesRepository
 import org.example.tgnotification.modules.subscription.repositories.ChannelsRepository
@@ -45,8 +48,8 @@ class SubscriptionService (
     }
 
     @Transactional
-    fun getChannelsBySource(source: String): List<ChannelsEntity> {
-        val sourceRes = sourcesRepository.findById(source)
+    fun getChannelsBySource(source: SourceType): List<ChannelsEntity> {
+        val sourceRes = sourcesRepository.findById(source.toString())
         if (sourceRes.isEmpty) {
             throw Exception("Source not found")
         }
@@ -55,5 +58,26 @@ class SubscriptionService (
             return listOf()
         }
         return src.map { it.channel!! }
+    }
+
+    @Transactional
+    fun getSourceById(source: SourceType): SourcesEntity {
+        val sourceRes = sourcesRepository.findById(source.toString())
+        if (sourceRes.isEmpty) {
+            throw Exception("Source not found")
+        }
+        return sourceRes.get()
+    }
+
+    @Transactional
+    fun updateSource(source: SourceType, data: SourceBaseClass) {
+        logger.info("---- updateSource")
+        logger.info("source: $source")
+        logger.info("data: $data")
+        val sourceRes = SourcesEntity()
+        sourceRes.id = source.toString()
+        sourceRes.data = data
+        sourcesRepository.save(sourceRes)
+        logger.info("---- updateSource")
     }
 }
