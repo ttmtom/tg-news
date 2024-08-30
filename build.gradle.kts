@@ -4,6 +4,7 @@ plugins {
     id("org.springframework.boot") version "3.3.3"
     id("io.spring.dependency-management") version "1.1.6"
     id("org.flywaydb.flyway") version "9.22.0"
+    id("com.google.cloud.tools.jib") version "3.3.1" // Add this line
 }
 
 group = "org.example"
@@ -62,4 +63,16 @@ task("flywayMigrateLocal", org.flywaydb.gradle.task.FlywayMigrateTask::class) {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+jib {
+    from {
+        image = "openjdk:21-jdk-slim"
+    }
+    to {
+        image = "tmtam921/tg-news:latest"
+    }
+    container {
+        mainClass = "org.example.tgnotification.TgNotificationApplication"
+    }
 }
