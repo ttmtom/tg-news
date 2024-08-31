@@ -16,7 +16,7 @@ open class SourcesEntity: DBBaseObject() {
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Nullable
-    var data: SourceBaseClass? = null
+    open var data: SourceBaseClass? = null
 
     override fun toString(): String {
         val createdAtStr = createdAt.toString() ?: ""
