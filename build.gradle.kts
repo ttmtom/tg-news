@@ -33,7 +33,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC.2")
     implementation("org.jsoup:jsoup:1.18.1")
-    implementation("com.vladmihalcea:hibernate-types-60:2.21.0")
+//    implementation("com.vladmihalcea:hibernate-types-60:2.21.0")
     runtimeOnly("org.postgresql:postgresql")
     val telegramBotVersion="0.10.2"
     implementation("io.github.dehuckakpyt.telegrambot:telegram-bot-core:$telegramBotVersion")
