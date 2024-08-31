@@ -28,12 +28,12 @@ class NowNewsService (
         return doc
     }
 
-    @Scheduled(fixedRate = 30 * 1000)
+    @Scheduled(fixedRate = 5 * 60 * 1000)
     fun fetchNews() {
         logger.info("fetch news")
         try {
             val source = subscriptionService.getSourceById(SourceType.now_news)
-            val nowNewsDBData = (source.data ?: NowNewsDBData(574169)) as NowNewsDBData
+            val nowNewsDBData = (source.data ?: NowNewsDBData(574249)) as NowNewsDBData
             var todo = nowNewsDBData.latestNewsId
 
             while (true) {

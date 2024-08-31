@@ -37,9 +37,9 @@ class AdminService(
         val nowNewsMessage: NowNewsMessage = mapper.readValue(message, NowNewsMessage::class.java)
 
         val template = """
-            <b>${nowNewsMessage.title} ${nowNewsMessage.category}</b>
+            <h3>${nowNewsMessage.title} ${nowNewsMessage.category}</h3>
             ${if (nowNewsMessage.img != null) "<a href=\"${nowNewsMessage.img}\">&#8205;</a>" else ""}
-            <code>${nowNewsMessage.reviewContent}</code>
+            <h4>${nowNewsMessage.reviewContent}</h4>
             
             <a href="${nowNewsMessage.url}">Read more</a>
         """.trimIndent()
