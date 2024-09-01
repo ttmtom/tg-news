@@ -38,12 +38,17 @@ class NowNewsService (
 
             while (true) {
                 logger.info("fetching newsId: $todo")
-                val doc = getNewsById(todo)
+                var doc = getNewsById(todo)
 
-                val titleDoc = doc.getElementsByClass("newsTitle")
+                var titleDoc = doc.getElementsByClass("newsTitle")
                 if (titleDoc.isEmpty()) {
                     logger.info("titleDoc is empty skipping")
-                    break
+                    Thread.sleep(2000)
+                    doc = getNewsById(todo + 1)
+                    titleDoc = doc.getElementsByClass("newsTitle")
+                    if (titleDoc.isEmpty())
+                        break
+                    todo += 1
                 }
                 val title = titleDoc[0].text()
 
@@ -51,14 +56,14 @@ class NowNewsService (
                     .getElementsByClass("active")
                 if (activeCategory.isEmpty()) {
                     todo += 1
-                    Thread.sleep(2000)
+                    Thread.sleep(5000)
                     continue
                 }
                 val category = activeCategory[0].getElementsByClass("label")[0]
                     .text()
                 if (!CATEGORY_LIST.contains(category)) {
                     todo += 1
-                    Thread.sleep(2000)
+                    Thread.sleep(5000)
                     continue
                 }
 
@@ -84,7 +89,7 @@ class NowNewsService (
                 producerService.sendMessage(SourceType.now_news.toString(), message)
 
                 todo += 1
-                Thread.sleep(10000)
+                Thread.sleep(5000)
             }
             subscriptionService.updateSource(SourceType.now_news, nowNewsDBData.copy(latestNewsId = todo))
         } catch (e: Exception) {
