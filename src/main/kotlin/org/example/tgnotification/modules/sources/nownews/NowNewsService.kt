@@ -24,7 +24,9 @@ class NowNewsService (
     )
 
     fun getNewsById(id: Int): Document {
-        val doc = Jsoup.connect("https://news.now.com/home/local/player?newsId=${id.toString()}").get()
+        val doc = Jsoup.connect("https://news.now.com/home/local/player?newsId=${id.toString()}")
+            .header("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
+            .get()
         return doc
     }
 
