@@ -84,7 +84,7 @@ class NowNewsService (
                 producerService.sendMessage(SourceType.now_news.toString(), message)
 
                 todo += 1
-                Thread.sleep(2000)
+                Thread.sleep(10000)
             }
             subscriptionService.updateSource(SourceType.now_news, nowNewsDBData.copy(latestNewsId = todo))
         } catch (e: Exception) {
