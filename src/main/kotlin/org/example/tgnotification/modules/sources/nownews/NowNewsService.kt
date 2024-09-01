@@ -75,7 +75,7 @@ class NowNewsService (
                 }
 
                 val contentDoc = doc.getElementsByClass("newsLeading")
-                val content = contentDoc[0].text()
+                val content = contentDoc[0].getElementsByClass("contentTxt")[0].text()
 
                 val message = NowNewsMessage(
                     title,
