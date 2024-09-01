@@ -22,7 +22,10 @@ class AdminService(
         val adminMessage: AdminMessage = mapper.readValue(message, AdminMessage::class.java)
         runBlocking {
             try {
-                tgService.sendMessageToSubscriber(SourceType.admin, adminMessage.text)
+                tgService.sendMessageToSubscriber(
+                    SourceType.admin,
+                    adminMessage.text,
+                )
             } catch (e: Exception) {
                 logger.error("Error on admin kafka listener")
                 logger.error(e.toString())
@@ -38,13 +41,13 @@ class AdminService(
 
         val template = """
             ${if (nowNewsMessage.img != null) "<a href=\"${nowNewsMessage.img}\">&#8205;</a>" else ""}<a href="${nowNewsMessage.url}"><b>${nowNewsMessage.title} ${nowNewsMessage.category}</b></a>
-            s
+            
             ${nowNewsMessage.reviewContent}
         """.trimIndent()
 
         runBlocking {
             try {
-                tgService.sendMessageToSubscriber(SourceType.now_news, template, "HTML")
+                tgService.sendMessageToSubscriber(SourceType.now_news, template, "HTML", nowNewsMessage.img == null)
             } catch (e: Exception) {
                 logger.error("Error on now_news kafka listener")
                 logger.error(e.toString())
