@@ -45,8 +45,8 @@ class NowNewsService (
             while (true) {
                 logger.info("fetching newsId: $todo")
                 val doc = getNewsById(todo)
-                val newsContent = doc.getElementsByClass("newsDetailsSwipe")
-                if (newsContent.isEmpty()) {
+                val newsContent = doc.getElementById("newsDetailsSwipe")
+                if (newsContent == null) {
                     logger.info("newsContent is empty skipping")
                     Thread.sleep(2000)
                     break
