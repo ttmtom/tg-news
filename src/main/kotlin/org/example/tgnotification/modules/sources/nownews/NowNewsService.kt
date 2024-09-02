@@ -3,6 +3,7 @@ package org.example.tgnotification.modules.sources.nownews
 import org.example.tgnotification.modules.kafka.producer.ProducerService
 import org.example.tgnotification.modules.sources.SourceType
 import org.example.tgnotification.modules.subscription.SubscriptionService
+import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory
@@ -27,11 +28,15 @@ class NowNewsService (
         "時事全方位"
     )
 
-    fun getNewsById(id: Int): Document {
-        val doc = Jsoup.connect("https://news.now.com/mobile/local/player?newsId=${id.toString()}")
-            .header("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.6613.99 Mobile Safari/537.36")
-            .get()
-        return doc
+    fun getNewsById(id: Int): Document? {
+        try {
+            val doc = Jsoup.connect("https://news.now.com/mobile/local/player?newsId=${id.toString()}")
+                .header("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.6613.99 Mobile Safari/537.36")
+                .get()
+            return doc
+        } catch (e: Exception) {
+            return null
+        }
     }
 
     @Scheduled(fixedRate = 5 * 60 * 1000)
@@ -45,6 +50,11 @@ class NowNewsService (
             while (true) {
                 logger.info("fetching newsId: $todo")
                 val doc = getNewsById(todo)
+                if (doc == null) {
+                    logger.info("doc is empty skipping")
+                    Thread.sleep(2000)
+                    break
+                }
                 val newsContent = doc.getElementById("newsDetailsSwipe")
                 if (newsContent == null) {
                     logger.info("newsContent is empty skipping")
