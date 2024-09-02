@@ -62,6 +62,11 @@ class NowNewsService (
                 }
 
                 val activeCategory = doc.getElementsByClass("active")
+                if (activeCategory.isEmpty()) {
+                    todo += 1
+                    Thread.sleep(5000)
+                    continue
+                }
                 val category = activeCategory[0].getElementsByClass("label")[0]
                     .text()
                 if (!CATEGORY_LIST.contains(category)) {
