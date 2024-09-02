@@ -23,9 +23,13 @@ class NowNewsService (
         "財經"
     )
 
+    private val FILETER_LIST = listOf(
+        "時事全方位"
+    )
+
     fun getNewsById(id: Int): Document {
-        val doc = Jsoup.connect("https://news.now.com/home/local/player?newsId=${id.toString()}")
-            .header("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion")
+        val doc = Jsoup.connect("https://news.now.com/mobile/local/player?newsId=${id.toString()}")
+            .header("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.6613.99 Mobile Safari/537.36")
             .get()
         return doc
     }
@@ -40,27 +44,24 @@ class NowNewsService (
 
             while (true) {
                 logger.info("fetching newsId: $todo")
-                var doc = getNewsById(todo)
-
-                var titleDoc = doc.getElementsByClass("newsTitle")
-                if (titleDoc.isEmpty()) {
-                    logger.info("titleDoc is empty skipping")
+                val doc = getNewsById(todo)
+                val newsContent = doc.getElementsByClass("newsDetailsSwipe")
+                if (newsContent.isEmpty()) {
+                    logger.info("newsContent is empty skipping")
                     Thread.sleep(2000)
-                    doc = getNewsById(todo + 1)
-                    titleDoc = doc.getElementsByClass("newsTitle")
-                    if (titleDoc.isEmpty())
-                        break
-                    todo += 1
+                    break
                 }
+
+                val titleDoc = doc.getElementsByClass("newsTitle")
                 val title = titleDoc[0].text()
 
-                val activeCategory = doc.getElementsByClass("siteMenu")[0]
-                    .getElementsByClass("active")
-                if (activeCategory.isEmpty()) {
+                if (FILETER_LIST.any { title.contains(it) }) {
                     todo += 1
                     Thread.sleep(5000)
                     continue
                 }
+
+                val activeCategory = doc.getElementsByClass("active")
                 val category = activeCategory[0].getElementsByClass("label")[0]
                     .text()
                 if (!CATEGORY_LIST.contains(category)) {
@@ -69,7 +70,7 @@ class NowNewsService (
                     continue
                 }
 
-                val mediaDoc = doc.getElementsByClass("news-media")
+                val mediaDoc = doc.getElementsByClass("newsImgWrap")
                 var img: String? = null
 
                 if (!mediaDoc.isEmpty()) {
@@ -82,7 +83,7 @@ class NowNewsService (
                 val message = NowNewsMessage(
                     title,
                     img,
-                    url="https://news.now.com/home/local/player?newsId=${todo.toString()}",
+                    url="https://news.now.com/mobile/local/player?newsId=${todo.toString()}",
                     category,
                     reviewContent = content
                 )
